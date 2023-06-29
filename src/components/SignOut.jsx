@@ -11,6 +11,8 @@ export const SignOut = (props) => {
   const signUserOut = async () => {
     await signOut(auth);
     cookies.remove("auth-token");
+    cookies.remove("name");
+    cookies.remove("profile-photo");
     setAuthenticated(false);
   };
 
