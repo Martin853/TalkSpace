@@ -3,6 +3,7 @@ import logo from "../assets/Logo.png";
 import { SignOut } from "../components/SignOut";
 
 import Cookies from "universal-cookie";
+import { Chat } from "../components/Chat";
 const cookies = new Cookies();
 
 export const Authenticated = (props) => {
@@ -25,6 +26,7 @@ export const Authenticated = (props) => {
           </div>
         </div>
       </div>
+      <Chat />
     </div>
   );
 };
