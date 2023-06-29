@@ -20,7 +20,7 @@ export const Auth = (props) => {
 
   return (
     <button
-      className='bg-violet-700 font-syne font-semibold text-2xl text-white py-3 px-8 rounded-2xl'
+      className='bg-violet-700 font-syne font-semibold text-lg sm:text-2xl text-white py-3 px-8 rounded-2xl'
       onClick={signInWithGoogle}
     >
       Sign In With Google

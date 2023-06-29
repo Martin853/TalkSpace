@@ -18,7 +18,7 @@ export const SignOut = (props) => {
 
   return (
     <button
-      className='h-fit bg-violet-700 font-syne font-semibold text-2xl text-white py-3 px-8 rounded-2xl'
+      className='h-fit bg-violet-700 font-syne font-semibold text-base text-white p-1 rounded-lg md:text-2xl md:px-3 md:rounded-2xl'
       onClick={signUserOut}
     >
       Sign Out

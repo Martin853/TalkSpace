@@ -44,8 +44,8 @@ export const Chat = () => {
   };
 
   return (
-    <div className='w-full h-full flex flex-col bg-purple-50'>
-      <div className='w-11/12 mx-auto mt-2 h-full overflow-y-auto flex flex-col gap-4'>
+    <div className='w-full h-full flex flex-col bg-purple-50 overflow-y-auto'>
+      <div className='w-11/12 mx-auto my-2 h-full overflow-y-auto flex flex-col gap-4'>
         {messages.map((messages) => (
           <MessageUI
             key={messages.id}
@@ -67,7 +67,7 @@ export const Chat = () => {
           />
           <button
             onClick={handleSend}
-            className='w-fit bg-purple-200 px-6 rounded-xl font-syne text-xl'
+            className='w-fit bg-purple-200 px-2 rounded-xl font-syne text-base md:text-xl md:px-8'
           >
             Send
           </button>
