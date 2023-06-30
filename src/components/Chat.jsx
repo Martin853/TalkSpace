@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   addDoc,
   collection,
@@ -14,10 +14,11 @@ export const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
   const messagesRef = collection(db, "messages");
   const [messages, setMessages] = useState([]);
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
     const queryMessages = query(messagesRef, orderBy("createdAt"));
-    const unsuscribe = onSnapshot(queryMessages, (snapshot) => {
+    const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
       let messages = [];
 
       snapshot.forEach((doc) => {
@@ -25,9 +26,10 @@ export const Chat = () => {
       });
 
       setMessages(messages);
+      scrollToBottom();
     });
 
-    return () => unsuscribe();
+    return () => unsubscribe();
   }, []);
 
   const handleSend = async () => {
@@ -43,15 +45,31 @@ export const Chat = () => {
     setNewMessage("");
   };
 
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      const { scrollHeight, clientHeight } = chatContainerRef.current;
+      const maxScrollTop = scrollHeight - clientHeight;
+      chatContainerRef.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+    }
+  };
+
   return (
     <div className='w-full h-full flex flex-col bg-purple-50 overflow-y-auto'>
-      <div className='w-11/12 mx-auto my-2 h-full overflow-y-auto flex flex-col gap-4'>
-        {messages.map((messages) => (
+      <div
+        ref={chatContainerRef}
+        className='w-11/12 mx-auto my-2 h-full overflow-y-auto flex flex-col gap-4'
+        style={{
+          scrollBehavior: "smooth",
+          transition: "scroll-margin 300ms",
+          scrollMarginBottom: "20px",
+        }}
+      >
+        {messages.map((message) => (
           <MessageUI
-            key={messages.id}
-            text={messages.text}
-            user={messages.user}
-            image={messages.profilePhoto}
+            key={message.id}
+            text={message.text}
+            user={message.user}
+            image={message.profilePhoto}
           />
         ))}
       </div>
